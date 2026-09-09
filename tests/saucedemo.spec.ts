@@ -7,9 +7,11 @@ test.describe('SauceDemo - Automação', () => {
         
         await homePage.goto();
 
-        await homePage.goToLoginPage();
+        await homePage.searchProduct('grey');
 
-        await loginPage.login('test@ts', '123');
+        // await homePage.goToLoginPage();
+
+        // await loginPage.login('test@ts', '123');
 
     });
 
