@@ -9,6 +9,17 @@ type MyFixtures = {
 };
 
 export const test = base.extend<MyFixtures>({
+    page: async ({ page }, use) => {
+        await page.addInitScript(() => {
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined,
+            });
+        });
+        
+        // Passa a página modificada para o restante das fixtures e testes
+        await use(page);
+    },
+
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page);
         await use(homePage);

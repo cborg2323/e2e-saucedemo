@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class HomePage {
   readonly page: Page;
@@ -7,6 +7,7 @@ export class HomePage {
   readonly topNav: Locator;
   readonly miniCart: Locator;
   readonly sideNav: Locator;
+  readonly productGridSection: Locator;
 
   readonly searchInput: Locator;
   readonly searchButton: Locator;
@@ -26,6 +27,7 @@ export class HomePage {
     this.topNav = page.locator('.desktop nav');
     this.miniCart = page.locator('#minicart div');
     this.sideNav = page.locator('#sidebar nav');
+    this.productGridSection = page.locator('section.product-grid');
 
     this.searchInput = this.productSearchForm.getByPlaceholder('Search');
     this.searchButton = this.productSearchForm.locator('#search-submit');
@@ -52,9 +54,17 @@ export class HomePage {
     await this.topNavSignupLink.click();
   }
 
+  async goToCatalog() {
+    await this.sideNavCatalogLink.click();
+  }
+
   async searchProduct(productName: string) {
     await this.searchInput.fill(productName);
     await this.searchButton.click();
+  }
+
+  getProductLocator(productQuery: string): Locator {
+    return this.productGridSection.getByText(productQuery, {exact: false});
   }
 
 }
