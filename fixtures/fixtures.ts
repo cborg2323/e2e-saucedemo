@@ -1,7 +1,11 @@
 import { test as base } from '@playwright/test';
+import { chromium } from 'playwright-extra';
+import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
+
+chromium.use(stealthPlugin());
 
 type MyFixtures = {
     homePage: HomePage;
@@ -9,15 +13,13 @@ type MyFixtures = {
 };
 
 export const test = base.extend<MyFixtures>({
-    page: async ({ page }, use) => {
-        await page.addInitScript(() => {
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined,
-            });
+    browser: async ({}, use) => {
+        const browser = await chromium.launch({
+            headless: false,
+            args: ['--disable-blink-features=AutomationControlled']
         });
-        
-        // Passa a página modificada para o restante das fixtures e testes
-        await use(page);
+        await use(browser);
+        await browser.close();
     },
 
     homePage: async ({ page }, use) => {
