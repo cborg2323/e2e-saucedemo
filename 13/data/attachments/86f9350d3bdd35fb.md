@@ -1,0 +1,168 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: saucedemo.spec.ts >> SauceDemo MyShopify - Main features >> should display product in the cart when added
+- Location: tests/saucedemo.spec.ts:26:9
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('div#drawer').getByRole('link', { name: 'Grey jacket' })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" locator('div#drawer').getByRole('link', { name: 'Grey jacket' }) with timeout 5000ms
+  - waiting for locator('div#drawer').getByRole('link', { name: 'Grey jacket' })
+
+```
+
+```yaml
+- paragraph
+- banner:
+  - search:
+    - button "Submit"
+    - textbox "Search"
+  - navigation:
+    - link "Search":
+      - /url: /search
+    - link "About Us":
+      - /url: /pages/about-us
+    - link "Log In":
+      - /url: /account/login
+    - link "Sign up":
+      - /url: /account/register
+  - link "My Cart (1)":
+    - /url: "#"
+  - link "Check Out":
+    - /url: /cart
+  - heading "Sauce Demo" [level=1]:
+    - link "Sauce Demo":
+      - /url: /
+      - img "Sauce Demo"
+  - heading "Just a demo site showing off what Sauce can do." [level=3]
+- navigation:
+  - list:
+    - listitem:
+      - link "Home":
+        - /url: /
+    - listitem:
+      - link "Catalog":
+        - /url: /collections/all
+    - listitem:
+      - link "Blog":
+        - /url: /blogs/news
+    - listitem:
+      - link "About Us":
+        - /url: /pages/about-us
+    - listitem:
+      - link "Wish list":
+        - /url: "#sauce-show-wish-list"
+    - listitem:
+      - link "Refer a friend":
+        - /url: "#sauce-show-refer-friend"
+  - link:
+    - /url: http://www.facebook.com/shopify
+  - link:
+    - /url: http://www.twitter.com/sauce_io
+  - link:
+    - /url: http://www.instagram.com/shopify
+  - link:
+    - /url: http://www.pinterest.com/chrisjhoughton/awesome-facebook-integration/
+  - link:
+    - /url: /blogs/news.atom
+- link "Home":
+  - /url: /
+- text: —
+- link "Grey jacket":
+  - /url: /products/grey-jacket
+- img "Product Image"
+- heading "Grey jacket" [level=1]
+- heading "£55.00" [level=2]
+- combobox:
+  - option "Grey jacket" [selected]
+- button "Add to Cart"
+- text: This area is populated by the product description. If you ever run out of things to say about what you're selling then take a look at
+- link "9 ways to write compelling product descriptions":
+  - /url: http://www.shopify.ca/blog/8211159-9-simple-ways-to-write-product-descriptions-that-sell
+- text: . In Theme Settings you can also change render the product description to the write of the product images.X
+- contentinfo:
+  - navigation:
+    - heading "Footer" [level=2]
+    - link "Search":
+      - /url: /search
+    - link "About Us":
+      - /url: /pages/about-us
+  - heading "About Us" [level=2]
+  - paragraph:
+    - strong:
+      - text: This is a demo site created for
+      - link "Sauce":
+        - /url: http://sauceapp.io
+    - text: ", an awesome new way to make your Shopify site social. Sauce allows you to let customers to share what they purchase to their friends, and see what their friends have purchased or \"wanted\" on your store."
+  - img "We accept Amex"
+  - img "We accept Visa"
+  - img "We accept Mastercard"
+  - text: Copyright © 2026 Sauce Demo.
+  - link "Shopping Cart by Shopify":
+    - /url: https://www.shopify.co.uk/tour/shopping-cart?utm_campaign=poweredby&utm_medium=shopify&utm_source=onlinestore
+  - text: .
+  - navigation:
+    - link "Search":
+      - /url: /search
+    - link "About Us":
+      - /url: /pages/about-us
+```
+
+# Test source
+
+```ts
+  1  | import { expect, test } from '../fixtures/fixtures';
+  2  | 
+  3  | test.describe('SauceDemo MyShopify - Main features', () => {
+  4  | 
+  5  |     test.beforeEach(async ({ homePage }) => {
+  6  |         await homePage.goto();
+  7  |     });
+  8  | 
+  9  |     test('should display matching items in the product grid when search', async ({ homePage }) => {
+  10 |         const productQuery = 'grey';
+  11 | 
+  12 |         await homePage.searchProduct(productQuery);
+  13 |         await expect(homePage.getProductLocator(productQuery)).toBeVisible();
+  14 |     });
+  15 | 
+  16 |     test('displays wrong password error when user and/or password does not exists/matches', async ({ homePage, loginPage }) => {
+  17 | 
+  18 |         await homePage.goToLoginPage();
+  19 | 
+  20 |         await loginPage.login('test@ts', '123');
+  21 | 
+  22 |         // captcha blocking login attempt
+  23 |         // await expect(loginPage.errorMessageList).toContainText('Incorrect email or password.');
+  24 |     });
+  25 | 
+  26 |     test('should display product in the cart when added', async ({ homePage, catalogPage }) => {
+  27 |         
+  28 |         await homePage.goToCatalog();
+  29 |         
+  30 |         const productName = 'Grey jacket';
+  31 |         await catalogPage.selectProductByName(productName);
+  32 |         await catalogPage.addProductToCartNoVariations();
+  33 | 
+  34 |         await catalogPage.showCart();
+> 35 |         await expect(catalogPage.getProductLocatorByName(productName)).toBeVisible();
+     |                                                                        ^ Error: expect(locator).toBeVisible() failed
+  36 | 
+  37 |     });
+  38 | 
+  39 | });
+```
