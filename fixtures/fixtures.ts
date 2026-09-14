@@ -4,12 +4,14 @@ import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
+import { CatalogPage } from '../pages/CatalogPage';
 
 chromium.use(stealthPlugin());
 
 type MyFixtures = {
     homePage: HomePage;
     loginPage: LoginPage;
+    catalogPage: CatalogPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -29,6 +31,10 @@ export const test = base.extend<MyFixtures>({
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await use(loginPage);
+    },
+    catalogPage: async ({ page }, use) => {
+        const catalogPage = new CatalogPage(page);
+        await use(catalogPage);
     },
 
 });

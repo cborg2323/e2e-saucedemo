@@ -6,7 +6,7 @@ test.describe('SauceDemo MyShopify - Main features', () => {
         await homePage.goto();
     });
 
-    test('should display matching items in the product grid', async ({ homePage }) => {
+    test('should display matching items in the product grid when search', async ({ homePage }) => {
         const productQuery = 'grey';
 
         await homePage.searchProduct(productQuery);
@@ -21,6 +21,19 @@ test.describe('SauceDemo MyShopify - Main features', () => {
 
         // captcha blocking login attempt
         // await expect(loginPage.errorMessageList).toContainText('Incorrect email or password.');
+    });
+
+    test('should display product in the cart when added', async ({ homePage, catalogPage }) => {
+        
+        await homePage.goToCatalog();
+        
+        const productName = 'Grey jacket';
+        await catalogPage.selectProductByName(productName);
+        await catalogPage.addProductToCartNoVariations();
+
+        await catalogPage.showCart();
+        await expect(catalogPage.getProductLocatorByName(productName)).toBeVisible();
+
     });
 
 });

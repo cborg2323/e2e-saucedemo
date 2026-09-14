@@ -1,11 +1,11 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 export class HomePage {
   readonly page: Page;
 
   readonly productSearchForm: Locator;
   readonly topNav: Locator;
-  readonly miniCart: Locator;
+  
   readonly sideNav: Locator;
   readonly productGridSection: Locator;
 
@@ -15,9 +15,6 @@ export class HomePage {
   readonly topNavLoginLink: Locator;
   readonly topNavSignupLink: Locator;
 
-  readonly miniCartMyCart: Locator;
-  readonly miniCartCheckout: Locator;
-
   readonly sideNavCatalogLink: Locator;
 
   constructor(page: Page) {
@@ -25,7 +22,7 @@ export class HomePage {
 
     this.productSearchForm = page.locator('#product-search form');
     this.topNav = page.locator('.desktop nav');
-    this.miniCart = page.locator('#minicart div');
+    
     this.sideNav = page.locator('#sidebar nav');
     this.productGridSection = page.locator('section.product-grid');
 
@@ -34,9 +31,6 @@ export class HomePage {
 
     this.topNavLoginLink = this.topNav.getByRole('link', { name: 'Log In' });
     this.topNavSignupLink = this.topNav.getByRole('link', { name: 'Sign up' });
-
-    this.miniCartMyCart = this.miniCart.getByRole('link', { name: 'My Cart' });
-    this.miniCartCheckout = this.miniCart.getByRole('link', { name: 'Check Out' });
 
     this.sideNavCatalogLink = this.sideNav.getByRole('link', { name: 'Catalog' });
 
