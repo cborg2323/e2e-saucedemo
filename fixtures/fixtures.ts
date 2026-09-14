@@ -17,7 +17,7 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
     browser: async ({}, use) => {
         const browser = await chromium.launch({
-            headless: false,
+            headless: !!process.env.CI,
             args: ['--disable-blink-features=AutomationControlled']
         });
         await use(browser);
