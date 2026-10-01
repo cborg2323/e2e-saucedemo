@@ -15,6 +15,10 @@ export class HomePage {
   readonly topNavLoginLink: Locator;
   readonly topNavSignupLink: Locator;
 
+  // logged in
+  readonly topNavMyAccountLink: Locator;
+  readonly topNavLogOutLink: Locator;
+
   readonly sideNavCatalogLink: Locator;
 
   constructor(page: Page) {
@@ -32,12 +36,15 @@ export class HomePage {
     this.topNavLoginLink = this.topNav.getByRole('link', { name: 'Log In' });
     this.topNavSignupLink = this.topNav.getByRole('link', { name: 'Sign up' });
 
+    this.topNavMyAccountLink = this.topNav.getByRole('link', { name: 'My Account' });
+    this.topNavLogOutLink = this.topNav.getByRole('link', { name: 'Log Out' });
+
     this.sideNavCatalogLink = this.sideNav.getByRole('link', { name: 'Catalog' });
 
   }
 
   async goto() {
-    await this.page.goto('https://sauce-demo.myshopify.com/');
+    await this.page.goto('/');
   }
 
   async goToLoginPage() {

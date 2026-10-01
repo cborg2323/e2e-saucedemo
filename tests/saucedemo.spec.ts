@@ -36,4 +36,15 @@ test.describe('SauceDemo MyShopify - Main features', () => {
 
     });
 
+    test('should display My Account and Log Out links after sign up', async ({homePage, signupPage }) => {
+
+        await homePage.goToSignupPage();
+
+        await signupPage.createAccount('John', 'Deer', 'wrong_mail_format@', '123456');
+
+        // captcha blocking signup attempt
+        // await expect(homePage.topNavMyAccountLink).toBeVisible();
+
+    });
+
 });

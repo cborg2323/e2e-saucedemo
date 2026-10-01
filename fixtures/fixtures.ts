@@ -5,6 +5,7 @@ import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { CatalogPage } from '../pages/CatalogPage';
+import { SignupPage } from '../pages/SignupPage';
 
 chromium.use(stealthPlugin());
 
@@ -12,6 +13,7 @@ type MyFixtures = {
     homePage: HomePage;
     loginPage: LoginPage;
     catalogPage: CatalogPage;
+    signupPage: SignupPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -35,6 +37,10 @@ export const test = base.extend<MyFixtures>({
     catalogPage: async ({ page }, use) => {
         const catalogPage = new CatalogPage(page);
         await use(catalogPage);
+    },
+    signupPage: async ({ page }, use) => {
+        const signupPage = new SignupPage(page);
+        await use(signupPage);
     },
 
 });
