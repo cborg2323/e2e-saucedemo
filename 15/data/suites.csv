@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1777","displays wrong password error when user and/or password does not exists/matches","firefox","2026-10-01","passed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","1004","should display matching items in the product grid when search","firefox","2026-10-01","passed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","7670","should display product in the cart when added","firefox","2026-10-01","failed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","1088","should display matching items in the product grid when search","chromium","2026-10-01","passed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","3975","should display My Account and Log Out links after sign up","chromium","2026-10-01","passed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","6360","should display product in the cart when added","chromium","2026-10-01","failed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
+"","1881","displays wrong password error when user and/or password does not exists/matches","chromium","2026-10-01","passed","2026-10-01","SauceDemo MyShopify - Main features","saucedemo.spec.ts","",""
