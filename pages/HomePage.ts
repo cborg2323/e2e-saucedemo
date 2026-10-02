@@ -33,8 +33,8 @@ export class HomePage {
     this.searchInput = this.productSearchForm.getByPlaceholder('Search');
     this.searchButton = this.productSearchForm.locator('#search-submit');
 
-    this.topNavLoginLink = this.topNav.getByRole('link', { name: 'Log In' });
-    this.topNavSignupLink = this.topNav.getByRole('link', { name: 'Sign up' });
+    this.topNavLoginLink = this.page.locator('#customer_login_link');
+    this.topNavSignupLink = this.page.locator('#customer_register_link');
 
     this.topNavMyAccountLink = this.topNav.getByRole('link', { name: 'My Account' });
     this.topNavLogOutLink = this.topNav.getByRole('link', { name: 'Log Out' });

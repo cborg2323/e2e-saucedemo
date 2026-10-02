@@ -20,7 +20,7 @@ test.describe('SauceDemo MyShopify - Main features', () => {
         await loginPage.login('test@ts', '123');
 
         // captcha blocking login attempt
-        // await expect(loginPage.errorMessageList).toContainText('Incorrect email or password.');
+        await expect(loginPage.errorMessageList).toContainText('Incorrect email or password.');
     });
 
     test('should display product in the cart when added', async ({ homePage, catalogPage }) => {

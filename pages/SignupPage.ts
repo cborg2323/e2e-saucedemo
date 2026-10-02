@@ -4,7 +4,7 @@ import { Page, Locator } from 'playwright/test';
 export class SignupPage {
     readonly page: Page;
 
-    readonly signupForm: Locator;
+    // readonly signupForm: Locator;
     
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
@@ -18,31 +18,31 @@ export class SignupPage {
     constructor(page: Page) {
         this.page = page;
 
-        this.signupForm = page.locator('form#create_customer');
+        // this.signupForm = page.locator('form#create_customer');
 
-        this.firstNameInput = this.signupForm.locator('input[name="customer[first_name]"]');
-        this.lastNameInput = this.signupForm.locator('input[name="customer[last_name]"]');
-        this.emailInput = this.signupForm.locator('input[name="customer[email]"]');
-        this.passwordInput = this.signupForm.locator('input[name="customer[password]"]');
+        this.firstNameInput = this.page.locator('input[name="customer[first_name]"]');
+        this.lastNameInput = this.page.locator('input[name="customer[last_name]"]');
+        this.emailInput = this.page.locator('input[name="customer[email]"]');
+        this.passwordInput = this.page.locator('input[name="customer[password]"]');
 
-        this.createButton = this.signupForm.getByRole('button', { name: 'Create' });
+        this.createButton = this.page.locator('input.button[value="Create"]');
 
-        this.errorsList = this.signupForm.locator('.errors ul');
+        this.errorsList = this.page.locator('.errors');
 
     }
 
     async createAccount(firstName: string, lastName: string, email: string, password: string) {
         await this.firstNameInput.click();
-        await this.firstNameInput.pressSequentially(firstName, { delay: 50 });
+        await this.firstNameInput.fill(firstName);
         
         await this.lastNameInput.click();
-        await this.lastNameInput.pressSequentially(lastName, { delay: 50 });
+        await this.lastNameInput.fill(lastName);
         
         await this.emailInput.click();
-        await this.emailInput.pressSequentially(email, { delay: 50 });
+        await this.emailInput.fill(email);
         
         await this.passwordInput.click();
-        await this.passwordInput.pressSequentially(password, { delay: 50 });
+        await this.passwordInput.fill(password);
 
         // await this.createButton.click();
         await this.passwordInput.press('Enter');

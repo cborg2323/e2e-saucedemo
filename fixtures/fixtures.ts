@@ -1,5 +1,5 @@
 import { test as base, BrowserContext } from '@playwright/test';
-import { launch } from 'cloakbrowser';
+import { launchPersistentContext } from 'cloakbrowser';
 
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
@@ -16,20 +16,18 @@ type MyFixtures = {
 
 export const test = base.extend<MyFixtures>({
     cloakContext: async ({ }, use) => {
-        const browser = await launch({
-            headless: false,
-            // humanize: true,
-        });
 
-        const context = await browser.newContext({
+        const context = await launchPersistentContext({
+            userDataDir: './cloak-profile',
             locale: 'pt-BR',
             timezoneId: 'America/Sao_Paulo',
+            headless: false,
+            humanize: true,
         });
 
         await use(context);
 
         await context.close();
-        await browser.close();
     },
     page: async ({ cloakContext }, use) => {
         const page = await cloakContext.newPage();
