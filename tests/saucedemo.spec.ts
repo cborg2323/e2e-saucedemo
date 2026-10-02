@@ -40,10 +40,10 @@ test.describe('SauceDemo MyShopify - Main features', () => {
 
         await homePage.goToSignupPage();
 
-        await signupPage.createAccount('John', 'Deer', 'wrong_mail_format@', '123456');
+        await signupPage.createAccount('John', 'Deer', 'johndeer@mail', '123456');
 
         // captcha blocking signup attempt
-        // await expect(homePage.topNavMyAccountLink).toBeVisible();
+        await expect(homePage.topNavMyAccountLink).toBeVisible();
 
     });
 

@@ -1,6 +1,7 @@
 {
   "name": "e2e-saucedemo",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {},
@@ -9,11 +10,12 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.5.1",
-    "allure-playwright": "^3.12.1"
+    "@types/node": "^26.6.4",
+    "allure-playwright": "^3.12.1",
+    "cloakbrowser": "^0.5.11",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "playwright-extra": "^4.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "playwright-core": "^1.63.0"
   }
 }

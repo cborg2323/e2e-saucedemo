@@ -1,15 +1,13 @@
-import { test as base } from '@playwright/test';
-import { chromium } from 'playwright-extra';
-import stealthPlugin from 'puppeteer-extra-plugin-stealth';
+import { test as base, BrowserContext } from '@playwright/test';
+import { launch } from 'cloakbrowser';
 
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { CatalogPage } from '../pages/CatalogPage';
 import { SignupPage } from '../pages/SignupPage';
 
-chromium.use(stealthPlugin());
-
 type MyFixtures = {
+    cloakContext: BrowserContext;
     homePage: HomePage;
     loginPage: LoginPage;
     catalogPage: CatalogPage;
@@ -17,15 +15,27 @@ type MyFixtures = {
 };
 
 export const test = base.extend<MyFixtures>({
-    browser: async ({}, use) => {
-        const browser = await chromium.launch({
-            headless: !!process.env.CI,
-            args: ['--disable-blink-features=AutomationControlled']
+    cloakContext: async ({ }, use) => {
+        const browser = await launch({
+            headless: false,
+            // humanize: true,
         });
-        await use(browser);
+
+        const context = await browser.newContext({
+            locale: 'pt-BR',
+            timezoneId: 'America/Sao_Paulo',
+        });
+
+        await use(context);
+
+        await context.close();
         await browser.close();
     },
-
+    page: async ({ cloakContext }, use) => {
+        const page = await cloakContext.newPage();
+        await use(page);
+        await page.close();
+    },
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page);
         await use(homePage);

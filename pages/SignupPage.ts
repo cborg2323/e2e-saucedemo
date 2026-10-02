@@ -32,14 +32,20 @@ export class SignupPage {
     }
 
     async createAccount(firstName: string, lastName: string, email: string, password: string) {
-        
+        await this.firstNameInput.click();
         await this.firstNameInput.pressSequentially(firstName, { delay: 50 });
+        
+        await this.lastNameInput.click();
         await this.lastNameInput.pressSequentially(lastName, { delay: 50 });
+        
+        await this.emailInput.click();
         await this.emailInput.pressSequentially(email, { delay: 50 });
+        
+        await this.passwordInput.click();
         await this.passwordInput.pressSequentially(password, { delay: 50 });
 
-        await this.createButton.click();
-        // await this.passwordInput.press('Enter');
+        // await this.createButton.click();
+        await this.passwordInput.press('Enter');
 
     }
 }
